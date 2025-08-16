@@ -1,0 +1,102 @@
+# **Aplikasi Desktop Nota Dinas**  
+
+Aplikasi ini memungkinkan Anda untuk **mengupload, mengelola, dan mengekspor nota dinas** ke dalam database PostgreSQL serta mendownloadnya dalam format **Excel (XLSX)** atau **PDF**. Dibangun dengan Python dan PyQt6.  
+
+---
+
+## **Fitur Utama**  
+- 📤 **Upload Nota Dinas** (PDF/DOCX)  
+- 🔍 **Ekstrak Data Otomatis** (Tanggal, Pengirim, Tempat, Petugas)  
+- 💾 **Simpan ke Database PostgreSQL**  
+- 📊 **Tampilkan Data dalam Tabel**  
+- ⬇️ **Download dalam Format:**  
+  - **Excel** (menggunakan `pandas` + `openpyxl`)  
+  - **PDF** (menggunakan `reportlab`)  
+
+---
+
+## **Teknologi yang Digunakan**  
+- **Python 3**  
+- **PyQt6** (GUI)  
+- **PostgreSQL** (Database)  
+- **Library Pendukung:**  
+  - `psycopg2` (koneksi database)  
+  - `pytesseract` + `pdf2image` (OCR untuk PDF hasil scan)  
+  - `python-docx` (parsing file Word)  
+  - `pandas` (export Excel)  
+  - `reportlab` (export PDF)  
+
+---
+
+## **Panduan Instalasi**  
+
+### **1. Prasyarat**  
+- **Python 3.8+** (Install dari [python.org](https://www.python.org/downloads/))  
+- **PostgreSQL** (Install via [pgAdmin](https://www.pgadmin.org/download/))  
+- **Tesseract OCR** (Untuk ekstrak teks dari PDF scan)  
+  - **Windows**: Download dari [UB-Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)  
+  - **Linux**:  
+    ```bash
+    sudo apt install tesseract-ocr
+    sudo apt install libtesseract-dev
+    ```
+
+### **2. Setup Database**  
+1. Buat database baru di PostgreSQL (misal: `nota_dinas_db`).  
+2. Update konfigurasi di `config.py`:  
+   ```python
+   DB_CONFIG = {
+       "dbname": "nota_dinas_db",
+       "user": "postgres",
+       "password": "password_anda",
+       "host": "localhost",
+       "port": "5432"
+   }
+   ```
+
+### **3. Install Dependencies**  
+```bash
+pip install PyQt6 psycopg2 pandas pytesseract pdf2image python-docx reportlab PyPDF2
+```
+
+### **4. Jalankan Aplikasi**  
+```bash
+python main.py
+```
+
+---
+
+## **Struktur Proyek**  
+```
+nota_dinas_app/
+│
+├── main.py                # GUI utama (PyQt6)
+├── database.py            # Koneksi PostgreSQL
+├── parser.py              # Ekstrak data dari PDF/Docx
+├── pdf_export.py          # Export ke PDF
+├── excel_export.py        # Export ke Excel
+└── config.py              # Konfigurasi database
+```
+
+---
+
+## **Cara Menggunakan**  
+1. **Upload Nota Dinas**  
+   - Klik tombol **"Upload Nota Dinas"** dan pilih file (PDF/DOCX).  
+   - Sistem akan otomatis mengekstrak data (Tanggal, Pengirim, Tempat, Petugas).  
+
+2. **Lihat Data di Tabel**  
+   - Data yang sudah diupload akan muncul dalam tabel.  
+
+3. **Download Data**  
+   - **Excel**: Klik **"Download Excel"** untuk simpan dalam format `.xlsx`.  
+   - **PDF**: Klik **"Download PDF"** untuk simpan dalam format `.pdf`.   
+
+--- 
+
+### **Catatan**  
+- Pastikan **PostgreSQL sudah berjalan** sebelum menjalankan aplikasi.  
+- Jika menggunakan **PDF scan**, pastikan **Tesseract OCR** terinstall.  
+- Sesuaikan pola regex di `parser.py` sesuai format nota dinas Anda.  
+
+🚀 **Selamat Menggunakan!**
